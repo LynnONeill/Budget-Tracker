@@ -1,8 +1,10 @@
 let transactions = [];
 let myChart;
 
+
 fetch("/api/transaction")
   .then(response => {
+    console.log("api get request sent")
     return response.json();
   })
   .then(data => {

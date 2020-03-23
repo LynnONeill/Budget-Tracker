@@ -1,20 +1,21 @@
 
 let db;
 
-const request = indexedDB.open("budgetTracker", 1);
+const request = indexedDB.open("budgetTrackerDB", 1);
 
 request.onupgradeneeded = function(event) {
     const db = event.target.result;
-    db.createObjectStore("pending", { autoIncrement: true });
+    const objectStore = db.createObjectStore("pendingTrans", { keyPath: "id", autoIncrement: true });
+    objectStore.createIndex("trans", "trans");
 };
 
 request.onsuccess = function(event) {
-    alert("indexed DB success!")
     db = event.target.result;
 
     if (navigator.onLine) {
-        console.log("if navigator.online is true")
 //         checkDatabase();
+    } else {
+        console.log("currently offline")
     }
 };
 
